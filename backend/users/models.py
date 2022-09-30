@@ -1,22 +1,25 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import UniqueConstraint
 
 
 class MyUser(AbstractUser):
     """Расширенная модель User."""
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('username',)
+    REQUIRED_FIELDS = ('username', 'first_name', 'last_name',)
     email = models.EmailField(
         db_index=True,
         unique=True,
         max_length=254,
         verbose_name='Email пользователя',
-        help_text='Укажите email пользователя'
+        help_text='Укажите email пользователя',
+        null=False
     )
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        ordering = ['id']
 
     def __str__(self):
         return f'Пользователь {self.email}'
@@ -33,7 +36,7 @@ class Follow(models.Model):
         verbose_name='Подписчик',
         related_name='follower',
     )
-    author = models.ForeignKey(
+    following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Подписка',
@@ -42,6 +45,11 @@ class Follow(models.Model):
 
     class Meta:
         verbose_name = 'Подписки'
+        verbose_name_plural = 'Подписки'
+        UniqueConstraint(
+            fields=['following', 'user'],
+            name='follow_unique'
+        )
 
     def __str__(self):
         return f"{self.user} подписан на {self.following}"

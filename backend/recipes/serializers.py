@@ -79,7 +79,7 @@ class ShortRecipeSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'image',
-            'time'
+            'cooking_time'
         )
 
     def get_image(self, obj):
@@ -107,8 +107,8 @@ class RecipeSerializer(serializers.ModelSerializer):
             'is_in_shopping_cart',
             'name',
             'image',
-            'description',
-            'time',
+            'text',
+            'cooking_time',
         )
 
     def get_ingredients(self, obj):
@@ -140,7 +140,7 @@ class RecipeAllFieldsSerializer(serializers.ModelSerializer):
         queryset=Tag.objects.all(),
         many=True
     )
-    time = serializers.IntegerField()
+    cooking_time = serializers.IntegerField()
 
     class Meta:
         model = Recipe
@@ -151,8 +151,8 @@ class RecipeAllFieldsSerializer(serializers.ModelSerializer):
             'author',
             'ingredients',
             'name',
-            'description',
-            'time',
+            'text',
+            'cooking_time',
         )
 
     def create_bulk(self, recipe, ingredients_data):
@@ -180,8 +180,8 @@ class RecipeAllFieldsSerializer(serializers.ModelSerializer):
         AmountOfIngredient.objects.filter(recipe=instance).delete()
         self.create_bulk(instance, ingredients_data)
         instance.name = validated_data.pop('name')
-        instance.description = validated_data.pop('description')
-        instance.time = validated_data.pop('time')
+        instance.text = validated_data.pop('text')
+        instance.cooking_time = validated_data.pop('cooking_time')
         if validated_data.get('image') is not None:
             instance.image = validated_data.pop('image')
         instance.save()
@@ -219,7 +219,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 
 class ShoppingListSerializer(FavoriteSerializer):
-    """Сериализация списка ппокупок."""
+    """Сериализация списка покупок."""
 
     class Meta(FavoriteSerializer.Meta):
         model = ShoppingList

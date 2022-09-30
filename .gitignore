@@ -130,3 +130,11 @@ dmypy.json
 
 # .idea
 .idea
+
+
+# unnecessary
+dump.json
+ingredients.csv
+ingredients.json
+ingredientsID.csv
+media/

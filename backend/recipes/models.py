@@ -78,7 +78,7 @@ class Recipe(models.Model):
         related_name='ingredients',
         verbose_name='Ингредиенты'
     )
-    description = models.TextField(
+    text = models.TextField(
         verbose_name='Описание рецепта',
         help_text='Введите описание рецепта'
     )
@@ -86,7 +86,7 @@ class Recipe(models.Model):
         Tag, related_name='tags',
         verbose_name='Тэг'
     )
-    time = models.PositiveSmallIntegerField(
+    cooking_time = models.PositiveSmallIntegerField(
         default=1,
         validators=[MinValueValidator(1, 'Значение не может быть меньше 1')],
         verbose_name='Время готовки блюда в минутах',
