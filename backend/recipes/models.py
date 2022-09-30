@@ -10,12 +10,14 @@ class Ingredient(models.Model):
     name = models.CharField(
         max_length=100,
         verbose_name='Название ингредиента',
-        help_text='Укажите название ингредиента'
+        help_text='Укажите название ингредиента',
+        null=False,
     )
-    measure = models.CharField(
+    measurement_unit = models.CharField(
         max_length=100,
         verbose_name='Единица измерения',
-        help_text='Укажите единицу измерения ингредиента'
+        help_text='Укажите единицу измерения ингредиента',
+        null=False,
     )
 
     class Meta:
@@ -23,7 +25,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингредиенты'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}, {self.measurement_unit}'
 
 
 class Tag(models.Model):
