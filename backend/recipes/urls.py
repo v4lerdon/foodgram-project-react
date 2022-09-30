@@ -1,8 +1,8 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (DownloadShoppingCart, IngredientViewSet, RecipeViewSet,
-                    ShoppingCartView, TagViewSet, FavoriteView)
+from .views import (DownloadShoppingCart, FavoriteView, IngredientViewSet,
+                    RecipeViewSet, ShoppingCartView, TagViewSet)
 
 app_name = 'recipes'
 

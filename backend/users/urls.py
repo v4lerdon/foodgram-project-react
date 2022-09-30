@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from .views import FollowListApiView, FollowApiView
+from .views import FollowApiView, FollowListApiView
 
 urlpatterns = [
     path('users/subscriptions/', FollowListApiView.as_view()),
