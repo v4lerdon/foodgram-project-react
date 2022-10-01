@@ -2,7 +2,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import UniqueConstraint
 
-from users.models import MyUser
+from users.models import User
 
 
 class Ingredient(models.Model):
@@ -59,7 +59,7 @@ class Tag(models.Model):
 class Recipe(models.Model):
     """Модель для рецептов блюд."""
     author = models.ForeignKey(
-        MyUser,
+        User,
         on_delete=models.CASCADE,
         related_name='recipes',
         verbose_name='Автор'
@@ -103,7 +103,7 @@ class Recipe(models.Model):
 class Favorite(models.Model):
     """Модель для избранного."""
     user = models.ForeignKey(
-        MyUser,
+        User,
         related_name='favorites',
         on_delete=models.CASCADE
     )
@@ -132,7 +132,7 @@ class Favorite(models.Model):
 class ShoppingList(models.Model):
     """Модель для списка покупок."""
     user = models.ForeignKey(
-        MyUser,
+        User,
         on_delete=models.CASCADE,
         related_name='shopping_list',
         verbose_name='Пользователь'

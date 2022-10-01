@@ -1,10 +1,7 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import Follow
-
-User = get_user_model()
+from .models import Follow, User
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
@@ -25,10 +22,11 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
-        if request is None or request.user.is_anonymous:
-            return False
         user = request.user
-        return Follow.objects.filter(following=obj, user=user).exists()
+        return (
+            not request.user.is_anonymous
+            and Follow.objects.filter(following=obj, user=user).exists()
+        )
 
 
 class FollowListSerializer(serializers.ModelSerializer):
@@ -65,13 +63,11 @@ class FollowListSerializer(serializers.ModelSerializer):
     def get_is_subscribed(self, user):
         current_user = self.context.get('current_user')
         other_user = user.following.all()
-        if user.is_anonymous:
-            return False
-        if other_user.count() == 0:
-            return False
-        if Follow.objects.filter(user=user, following=current_user).exists():
-            return True
-        return False
+        return (
+            Follow.objects.filter(user=user, following=current_user).exists()
+            and not other_user.count() == 0
+            and not user.is_anonymous
+        )
 
 
 class UserFollowSerializer(serializers.ModelSerializer):

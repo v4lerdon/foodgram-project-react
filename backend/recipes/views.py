@@ -26,14 +26,14 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
     """Вьюсет для тэгов. Только для чтения."""
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = [AllowAny, ]
+    permission_classes = (AllowAny, )
     pagination_class = None
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
     """Вьюсет для рецептов."""
     queryset = Recipe.objects.all()
-    permission_classes = [IsOwnerOrReadOnly, ]
+    permission_classes = (IsOwnerOrReadOnly, )
     pagination_class = PageNumberPagination
     pagination_class.page_size = 5
     filter_backends = (DjangoFilterBackend,)
@@ -46,7 +46,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 class ShoppingCartView(APIView):
     """APIView для корзины покупок."""
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request, recipe_id):
         user = request.user
@@ -76,7 +76,7 @@ class ShoppingCartView(APIView):
 
 class DownloadShoppingCart(APIView):
     """APIView для загрузки списка покупок."""
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request):
         list = {}
@@ -105,7 +105,7 @@ class DownloadShoppingCart(APIView):
 
 class FavoriteView(APIView):
     """APIView для избранного."""
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request, favorite_id):
         user = request.user

@@ -3,10 +3,11 @@ from django.db import models
 from django.db.models import UniqueConstraint
 
 
-class MyUser(AbstractUser):
+class User(AbstractUser):
     """Расширенная модель User."""
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username', 'first_name', 'last_name',)
+
     email = models.EmailField(
         db_index=True,
         unique=True,
@@ -19,13 +20,10 @@ class MyUser(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        ordering = ['id']
+        ordering = ('id',)
 
     def __str__(self):
         return f'Пользователь {self.email}'
-
-
-User = MyUser
 
 
 class Follow(models.Model):
@@ -47,7 +45,7 @@ class Follow(models.Model):
         verbose_name = 'Подписки'
         verbose_name_plural = 'Подписки'
         UniqueConstraint(
-            fields=['following', 'user'],
+            fields=('following', 'user',),
             name='follow_unique'
         )
 

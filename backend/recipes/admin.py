@@ -4,6 +4,7 @@ from recipes.models import (AmountOfIngredient, Favorite, Ingredient, Recipe,
                             ShoppingList, Tag)
 
 
+@admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'author', 'is_favorited')
     search_fields = ('name', 'author')
@@ -13,14 +14,13 @@ class RecipeAdmin(admin.ModelAdmin):
         return obj.favorites.count()
 
 
+@admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'measurement_unit')
     list_filter = ('name',)
 
 
-admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Tag)
-admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Favorite)
 admin.site.register(ShoppingList)
 admin.site.register(AmountOfIngredient)
