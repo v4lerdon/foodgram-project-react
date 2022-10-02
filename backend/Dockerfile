@@ -2,9 +2,9 @@ FROM python:3.7-slim
 
 RUN mkdir /backend
 
-WORKDIR /backend
+COPY /backend /backend
 
-COPY . .
+WORKDIR /backend
 
 RUN pip install -r requirements.txt --no-cache-dir
 
