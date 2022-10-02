@@ -137,5 +137,7 @@ dump.json
 ingredients.csv
 ingredients.json
 ingredientsID.csv
+latestdump.json
 media/
 .vscode
+

@@ -5,7 +5,6 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .filters import RecipeFilter
 
 from .models import (AmountOfIngredient, Favorite, Ingredient, Recipe,
                      ShoppingList, Tag)
@@ -38,7 +37,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
     pagination_class.page_size = 5
     filter_backends = (DjangoFilterBackend,)
-    filterset_class = RecipeFilter
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PUT', 'PATCH'):
