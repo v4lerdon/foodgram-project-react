@@ -4,7 +4,7 @@ name: foodgram_workflow
 on: [push]
 
 jobs:
-  tests:
+  push_on_github_and_tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
