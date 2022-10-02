@@ -10,8 +10,7 @@ services:
       - ./.env
 
   backend:
-    # image: v4lerdon/foodgram_back:latest
-    build: ../backend/
+    image: v4lerdon/foodgram_back:latest
     restart: always
     volumes:
       - static_value:/backend/static/
@@ -24,8 +23,7 @@ services:
       - ./.env
     
   frontend:
-    # image: v4lerdon/foodgram_front:latest
-    build: ../frontend/
+    image: v4lerdon/foodgram_front:latest
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
