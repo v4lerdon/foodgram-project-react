@@ -4,6 +4,8 @@ http://62.84.114.84/recipes
 
 ### Админка:
 
+**address:** http://62.84.114.84/admin/
+
 **login:** admin@admin.com
 
 **pswrd:** admin
