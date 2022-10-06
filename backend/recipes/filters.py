@@ -7,6 +7,9 @@ class RecipeFilter(rest_framework.FilterSet):
     tags = rest_framework.AllValuesMultipleFilter(
         field_name='tags__slug',
     )
+    author = rest_framework.AllValuesMultipleFilter(
+        field_name='author__id',
+    )
     is_favorited = rest_framework.BooleanFilter(
         method='get_is_favorited'
     )
@@ -25,6 +28,6 @@ class RecipeFilter(rest_framework.FilterSet):
 
     def get_is_in_shopping_cart(self, queryset, name, value):
         user = self.request.user
-        if value:
+        if value is True:
             return queryset.filter(purchases__user=user)
         return Recipe.objects.all()

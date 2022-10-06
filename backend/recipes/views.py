@@ -81,7 +81,7 @@ class DownloadShoppingCart(APIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
-        list = {}
+        list = {f"Список покупок:\n"}
         ingredients = AmountOfIngredient.objects.filter(
             recipe__purchases__user=request.user
         )
@@ -96,11 +96,10 @@ class DownloadShoppingCart(APIView):
                 }
             else:
                 list[name]['amount'] += amount
-        main_list = ([f"Список покупок:\n"
-                      f"$\u0020{item}\u0020-\u0020{value['amount']}"
-                      f"{value['measurement_unit']}\n"
-                      for item, value in list.items()])
-        response = HttpResponse(main_list, 'Content-Type: text/plain')
+        list = ([f"$\u0020{item}\u0020-\u0020{value['amount']}"
+                 f"{value['measurement_unit']}\n"
+                 for item, value in list.items()])
+        response = HttpResponse(list, 'Content-Type: text/plain')
         response['Content-Disposition'] = 'attachment; filename="shopcart.txt"'
         return response
 
