@@ -118,8 +118,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     def get_is_favorited(self, obj):
         request = self.context.get('request')
         user = request.user
-        if request is None or request.user.is_anonymous: 
-            return False 
+        if request is None or request.user.is_anonymous:
+            return False
         return Favorite.objects.filter(recipe=obj, user=user).exists()
         # return (
         #     not request.user.is_anonymous
