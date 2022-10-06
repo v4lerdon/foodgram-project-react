@@ -81,7 +81,7 @@ class DownloadShoppingCart(APIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
-        list = {f"Список покупок:\n"}
+        list = {}
         ingredients = AmountOfIngredient.objects.filter(
             recipe__purchases__user=request.user
         )
