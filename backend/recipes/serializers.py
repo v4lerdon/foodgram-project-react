@@ -214,10 +214,10 @@ class FavoriteSerializer(serializers.ModelSerializer):
         ]
 
     def to_representation(self, instance):
-        requset = self.context.get('request')
+        request = self.context.get('request')
         return ShortRecipeSerializer(
             instance.recipe,
-            context={'request': requset}
+            context={'request': request}
         ).data
 
 
@@ -236,8 +236,8 @@ class ShoppingListSerializer(FavoriteSerializer):
         ]
 
     def to_representation(self, instance):
-        requset = self.context.get('request')
+        request = self.context.get('request')
         return ShortRecipeSerializer(
             instance.recipe,
-            context={'request': requset}
+            context={'request': request}
         ).data
