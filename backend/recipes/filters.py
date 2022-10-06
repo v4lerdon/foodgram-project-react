@@ -1,18 +1,16 @@
-import django_filters as filters
+from django_filters import rest_framework
 
-from .models import Recipe, Tag
+from .models import Recipe
 
 
-class RecipeFilter(filters.FilterSet):
-    tags = filters.ModelMultipleChoiceFilter(
+class RecipeFilter(rest_framework.FilterSet):
+    tags = rest_framework.AllValuesMultipleFilter(
         field_name='tags__slug',
-        queryset=Tag.objects.all(),
-        to_field_name='slug',
     )
-    is_favorited = filters.BooleanFilter(
+    is_favorited = rest_framework.BooleanFilter(
         method='get_is_favorited'
     )
-    is_in_shopping_cart = filters.BooleanFilter(
+    is_in_shopping_cart = rest_framework.BooleanFilter(
         method='get_is_in_shopping_cart'
     )
 
@@ -22,12 +20,11 @@ class RecipeFilter(filters.FilterSet):
 
     def get_is_favorited(self, queryset, name, value):
         user = self.request.user
-        if value:
-            return queryset.filter(favorites__user=user)
-        return Recipe.objects.all()
+        if value is True:
+            return queryset.filter(favorites__user__username=user)
 
     def get_is_in_shopping_cart(self, queryset, name, value):
         user = self.request.user
         if value:
-            return queryset.filter(purchases__user=user)
+            return queryset.filter(purchases__user__username=user)
         return Recipe.objects.all()

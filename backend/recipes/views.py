@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .filters import IngredientFilter, RecipeFilter
+from .filters import RecipeFilter
 from .models import (AmountOfIngredient, Favorite, Ingredient, Recipe,
                      ShoppingList, Tag)
 from .permissions import IsOwnerOrReadOnly
@@ -21,7 +21,6 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     pagination_class = None
     filter_backends = (DjangoFilterBackend,)
-    filter_class = IngredientFilter
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
