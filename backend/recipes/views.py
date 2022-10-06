@@ -50,7 +50,7 @@ class ShoppingCartView(APIView):
     """APIView для корзины покупок."""
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request, recipe_id):
+    def post(self, request, recipe_id):
         user = request.user
         data = {
             'recipe': recipe_id,
