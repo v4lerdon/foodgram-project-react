@@ -4,7 +4,6 @@ from rest_framework.routers import DefaultRouter
 from .views import (DownloadShoppingCart, FavoriteView, IngredientViewSet,
                     RecipeViewSet, ShoppingCartView, TagViewSet)
 
-app_name = 'recipes'
 
 router = DefaultRouter()
 router.register('ingredients', IngredientViewSet, basename='ingredients')
@@ -16,5 +15,4 @@ urlpatterns = [
     path('recipes/<int:favorite_id>/favorite/', FavoriteView.as_view()),
     path('', include(router.urls)),
     path('recipes/<int:recipe_id>/shopping_cart/', ShoppingCartView.as_view()),
-
 ]
