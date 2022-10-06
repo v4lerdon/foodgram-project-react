@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from .models import (AmountOfIngredient, Favorite, Ingredient, Recipe,
                      ShoppingList, Tag)
 from .permissions import IsOwnerOrReadOnly
+from .filters import RecipeFilter, IngredientFilter
 from .serializers import (FavoriteSerializer, IngredientSerializer,
                           RecipeAllFieldsSerializer, RecipeSerializer,
                           ShoppingListSerializer, TagSerializer)
@@ -20,6 +21,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     pagination_class = None
     filter_backends = (DjangoFilterBackend,)
+    filter_class = IngredientFilter
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
@@ -37,6 +39,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
     pagination_class.page_size = 5
     filter_backends = (DjangoFilterBackend,)
+    filterset_class = RecipeFilter
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PUT', 'PATCH'):
