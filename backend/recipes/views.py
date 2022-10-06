@@ -6,10 +6,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .filters import IngredientFilter, RecipeFilter
 from .models import (AmountOfIngredient, Favorite, Ingredient, Recipe,
                      ShoppingList, Tag)
 from .permissions import IsOwnerOrReadOnly
-from .filters import RecipeFilter, IngredientFilter
 from .serializers import (FavoriteSerializer, IngredientSerializer,
                           RecipeAllFieldsSerializer, RecipeSerializer,
                           ShoppingListSerializer, TagSerializer)
